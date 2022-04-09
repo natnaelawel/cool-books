@@ -1,0 +1,9 @@
+import { IsNotEmpty } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+
+export class GetFileDto {
+  
+  @ApiProperty()
+  @IsNotEmpty()
+  path: string;
+}

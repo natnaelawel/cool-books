@@ -1,0 +1,17 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  dev-request-db:
+    image: postgres:13
+    ports:
+     - "5446:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=requests
+    networks:
+      - nest_requests
+  
+networks:
+  nest_requests:
