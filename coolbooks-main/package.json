@@ -16,7 +16,7 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main",
-    "deploy": "npm ci && npm run build && npm run start:prod",
+    "deploy": "npm run start:prod",
     "listen": "nest start --watch --config listener.json",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
