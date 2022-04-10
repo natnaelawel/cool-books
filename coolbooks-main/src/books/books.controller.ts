@@ -55,8 +55,23 @@ export class BooksController {
 
   @ApiBearerAuth('JWT')
   @UseGuards(JwtGuard)
+  @UseInterceptors(
+    FileInterceptor('cover', {
+      fileFilter: imageFileFilter,
+    }),
+  )
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Exchange request',
+    type: UpdateBookDto,
+  })
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
+  update(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+    @Body() updateBookDto: UpdateBookDto,
+  ) {
+    console.log(id, file, updateBookDto);
     return this.booksService.update(+id, updateBookDto);
   }
 

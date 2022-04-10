@@ -57,11 +57,11 @@ Swagger is easily adjustable, it can be successfully used for API testing and bu
 
 # REST API Endpoints
 
-- / Swagger UI endpoint
+- / -> Swagger UI endpoint
 
   ### Global Api Prefix
 
-- /api application endpoint
+- /api -> Application endpoint
 
   - /auth -> Auth Route
     - /signin -> POST: Signin

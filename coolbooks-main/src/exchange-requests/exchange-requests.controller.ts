@@ -57,12 +57,23 @@ export class ExchangeRequestsController {
 
   @ApiBearerAuth('JWT')
   @UseGuards(JwtGuard)
+  @UseInterceptors(FileInterceptor('picture'))
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Update exchange request',
+    type: UpdateExchangeRequestDto,
+  })
   @Patch(':id')
   update(
     @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
     @Body() updateExchangeRequestDto: UpdateExchangeRequestDto,
   ) {
-    return this.exchangeRequestsService.update(+id, updateExchangeRequestDto);
+    return this.exchangeRequestsService.update(
+      +id,
+      file,
+      updateExchangeRequestDto,
+    );
   }
 
   @ApiBearerAuth('JWT')

@@ -47,11 +47,24 @@ export class ExchangeRequestsService {
     return this.requestClient.emit('findOneExchangeRequest', id);
   }
 
-  update(id: number, updateExchangeRequestDto: UpdateExchangeRequestDto) {
-    return `This action updates a #${id} exchangeRequest`;
+  async update(
+    id: number,
+    file: Express.Multer.File,
+    updateExchangeRequestDto: UpdateExchangeRequestDto,
+  ) {
+    const result = await this.cloudinary.uploadImage(file).catch(() => {
+      throw new BadRequestException('Invalid file type.');
+    });
+
+    updateExchangeRequestDto.picture = result.secure_url;
+
+    return this.requestClient.send<any>('updateExchangeRequest', {
+      id,
+      data: updateExchangeRequestDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} exchangeRequest`;
+  async remove(id: number) {
+    return this.requestClient.send<any>('removeExchangeRequest', id);
   }
 }

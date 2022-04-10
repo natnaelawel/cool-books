@@ -30,8 +30,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, swagger_config);
   SwaggerModule.setup('/', app, document);
-
-  await app.listen(3000).then(() => {
+  const port = process.env.PORT || 3000;
+  await app.listen(port).then(() => {
     console.log('main application is listening');
   });
 }

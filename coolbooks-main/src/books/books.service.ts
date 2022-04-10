@@ -39,6 +39,10 @@ export class BooksService {
   }
 
   async update(id: number, updateBookDto: UpdateBookDto) {
+    const existedBook = await this.prisma.book.findUnique({ where: { id } });
+    if (!existedBook) {
+      throw new BadRequestException('There is no book with a specified id.');
+    }
     const result = await this.prisma.book.update({
       where: {
         id,
@@ -52,6 +56,10 @@ export class BooksService {
   }
 
   async remove(id: number) {
+    const existedBook = await this.prisma.book.findUnique({ where: { id } });
+    if (!existedBook) {
+      throw new BadRequestException('There is no book with a specified id.');
+    }
     const result = await this.prisma.book.delete({ where: { id } });
     return { data: result };
   }
