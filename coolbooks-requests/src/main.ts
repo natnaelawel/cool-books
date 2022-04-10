@@ -1,9 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configs = app.get(ConfigService);
+
   app.setGlobalPrefix('/api');
   app.enableCors({
     origin: '*',
@@ -12,9 +15,7 @@ async function bootstrap() {
     transport: Transport.RMQ,
     options: {
       name: 'REQUEST_SERVICE',
-      urls: [
-        process.env.RBMQ_URL,
-      ],
+      urls: [configs.get('RMQ_URL')],
       ports: 3001,
       queue: 'main_queue',
       queueOptions: {

@@ -12,7 +12,7 @@ async function bootstrap() {
   });
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
-  const config = new DocumentBuilder()
+  const swagger_config = new DocumentBuilder()
     .setTitle('Cool Books')
     .setDescription('The cool books API description')
     .setVersion('1.0')
@@ -28,7 +28,7 @@ async function bootstrap() {
       'JWT',
     )
     .build();
-  const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, swagger_config);
   SwaggerModule.setup('/', app, document);
 
   await app.listen(3000).then(() => {
