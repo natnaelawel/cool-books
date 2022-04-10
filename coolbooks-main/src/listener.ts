@@ -9,7 +9,7 @@ async function bootstrap() {
       transport: Transport.RMQ,
       options: {
         urls: [
-          'amqps://ylzkqhhu:SY-HWFnLnqdWqCYbwKhrXZdxiXA1nZzY@sparrow.rmq.cloudamqp.com/ylzkqhhu',
+         process.env.RMQ_URL,
         ],
         queue: 'main_queue',
         queueOptions: {

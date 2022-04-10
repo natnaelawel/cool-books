@@ -13,7 +13,7 @@ async function bootstrap() {
     options: {
       name: 'REQUEST_SERVICE',
       urls: [
-        'amqps://ylzkqhhu:SY-HWFnLnqdWqCYbwKhrXZdxiXA1nZzY@sparrow.rmq.cloudamqp.com/ylzkqhhu',
+        process.env.RBMQ_URL,
       ],
       ports: 3001,
       queue: 'main_queue',

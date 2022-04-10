@@ -2,49 +2,15 @@
 
 ![architecture](./img1.png)
 
-# REST API Endpoints
-
-- / Swagger UI endpoint
-
-  ### Global Api Prefix
-
-- /api application endpoint
-
-  - /auth -> Auth Route
-    - /signin -> POST: Signin
-    - /signup -> POST: Signup
-  - /users -> User Route
-    - /me -> Get: Profile
-    - / -> Get: Users
-    - /:id -> Get: a Single User
-    - /:id -> Patch: update user profile
-    - /:id -> Delete: delete user
-  - /books -> Books Route
-    - / -> POST: Create Books
-    - / -> Get: Get all books
-    - /:id -> Get: Get a single books
-    - /:id -> Patch: update book
-    - /:id -> Delete: delete book
-  - /exchange-requests -> Exchange Request Route
-    - / -> POST: Create Exchange Request
-    - / -> Get: Get all Exchange Request
-    - /:id -> Get: Get a single Exchange Request
-    - /:id -> Patch: update exchange request
-    - /:id -> Delete: delete exchange request
-  - /proposals -> Proposals Route
-    - / -> Get: find all proposals
-    - /user -> Get: find proposal by user
-    - /:id -> Get: find proposals by request
-
 # Technology Used
 
     * Nest js(Node js, Typescript)
     * Prisma (ORM)
-    * Postgresql
-    * Cloudinary(for image)
+    * Postgresql (Database)
+    * Cloudinary(for cloud image storage)
     * RabbitMQ(Queue Processing for Microservice Communication)
-    * Passport JWT for Authentication/Authorization
     * Swagger for API documentation
+    * Passport JWT for Authentication/Authorization
 
 ## Why Nest js
 
@@ -88,6 +54,40 @@ Passport is authentication middleware for Node. js . Extremely flexible and modu
 
 Swagger is the largest framework for designing APIs using a common language and enabling the development across the whole API lifecycle, including documentation, design, testing, and deployment.
 Swagger is easily adjustable, it can be successfully used for API testing and bug fixing. Another important point is that the same documentation can be used for accelerating various API-dependent processes.
+
+# REST API Endpoints
+
+- / Swagger UI endpoint
+
+  ### Global Api Prefix
+
+- /api application endpoint
+
+  - /auth -> Auth Route
+    - /signin -> POST: Signin
+    - /signup -> POST: Signup
+  - /users -> User Route
+    - /me -> Get: Profile
+    - / -> Get: Users
+    - /:id -> Get: a Single User
+    - /:id -> Patch: update user profile
+    - /:id -> Delete: delete user
+  - /books -> Books Route
+    - / -> POST: Create Books
+    - / -> Get: Get all books
+    - /:id -> Get: Get a single books
+    - /:id -> Patch: update book
+    - /:id -> Delete: delete book
+  - /exchange-requests -> Exchange Request Route
+    - / -> POST: Create Exchange Request
+    - / -> Get: Get all Exchange Request
+    - /:id -> Get: Get a single Exchange Request
+    - /:id -> Patch: update exchange request
+    - /:id -> Delete: delete exchange request
+  - /proposals -> Proposals Route
+    - / -> Get: find all proposals
+    - /user -> Get: find proposal by user
+    - /:id -> Get: find proposals by request
 
 # REST API Example
 

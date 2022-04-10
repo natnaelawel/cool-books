@@ -18,9 +18,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
         name: 'REQUEST_SERVICE',
         transport: Transport.RMQ,
         options: {
-          urls: [
-            'amqps://ylzkqhhu:SY-HWFnLnqdWqCYbwKhrXZdxiXA1nZzY@sparrow.rmq.cloudamqp.com/ylzkqhhu',
-          ],
+          urls: [process.env.RMQ_URL],
           queue: 'main_queue',
           queueOptions: {
             durable: false,
