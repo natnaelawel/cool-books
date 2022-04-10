@@ -24,7 +24,7 @@ model Book {
   id          Int       @id @default(autoincrement())
   title       String
   description String
-  price       Decimal
+  price       Float
   isbn        String?
   cover       String?
   tag         String?
