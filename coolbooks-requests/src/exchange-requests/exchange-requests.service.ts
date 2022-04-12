@@ -13,7 +13,6 @@ export class ExchangeRequestsService {
   }
 
   async findAll(userId: number) {
-    
     const result = await this.prismaService.exchangeRequest.findMany({
       where: { userId },
     });
@@ -27,11 +26,30 @@ export class ExchangeRequestsService {
     return { data: result };
   }
 
-  update(id: number, _updateExchangeRequestDto: any) {
-    return `This action updates a #${id} exchangeRequest`;
+  async update(id: number, updateExchangeRequestDto: any) {
+    try {
+      const data = await this.prismaService.exchangeRequest.update({
+        where: { id },
+        data: {
+          ...updateExchangeRequestDto,
+        },
+      });
+
+      return data;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} exchangeRequest`;
+  async remove(id: number) {
+    try {
+      const data = await this.prismaService.exchangeRequest.delete({
+        where: { id },
+      });
+
+      return data;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

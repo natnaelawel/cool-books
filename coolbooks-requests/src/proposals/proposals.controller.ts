@@ -17,7 +17,6 @@ export class ProposalsController {
   }
   @MessagePattern('findProposalsByUserId')
   async findProposalsByUserIdd(@Payload() userId: number) {
-    console.log('user id is ', userId);
     try {
       return await this.proposalsService.findProposalsByUserId(userId);
     } catch (error) {

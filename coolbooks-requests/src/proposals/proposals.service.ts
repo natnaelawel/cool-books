@@ -17,6 +17,7 @@ export class ProposalsService {
       },
       select: {
         tag_looking: true,
+        tag: true,
       },
     });
 
@@ -25,23 +26,11 @@ export class ProposalsService {
         tag: {
           in: userLooking.map((item) => item.tag_looking),
         },
+        tag_looking: { in: userLooking.map((item) => item.tag) },
         userId: { not: userId },
       },
     });
 
-    // const proposals = userRequests.map((userRequest) => {
-    //   return this.prisma.exchangeRequest.findMany({
-    //     where: {
-    //       tag: userRequest.tag_looking,
-    //       userId: { not: userId },
-    //     },
-    //     orderBy: {
-    //       createdAt: 'desc',
-    //     },
-    //   });
-    // });
-    // const data = await Promise.all(proposals);
-    // console.log('data is ', data);
     return { data: result };
   }
 
@@ -51,10 +40,15 @@ export class ProposalsService {
         id,
       },
     });
+    if (!userRequest) {
+      return { data: null };
+    }
 
     const data = await this.prisma.exchangeRequest.findMany({
       where: {
         tag: userRequest.tag_looking,
+        tag_looking: userRequest.tag,
+        id: { not: id },
       },
     });
 
