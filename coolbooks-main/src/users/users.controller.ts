@@ -28,26 +28,29 @@ export class UsersController {
   }
 
   @Get()
-  findAll() {
-    return { data: this.usersService.findAll() };
+  async findAll() {
+    return { data: await this.usersService.findAll() };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return { data: this.usersService.findOne(+id) };
+  async findOne(@Param('id') id: string) {
+    return { data: await this.usersService.findOne(+id) };
   }
 
   @ApiBearerAuth('JWT')
   @UseGuards(JwtGuard)
   @Patch(':id')
-  update(@GetUser('id') userId: number, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(userId, updateUserDto);
+  async update(
+    @GetUser('id') userId: number,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    return { data: await this.usersService.update(userId, updateUserDto) };
   }
 
   @ApiBearerAuth('JWT')
   @UseGuards(JwtGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return { data: await this.usersService.remove(+id) };
   }
 }

@@ -159,3 +159,13 @@ curl -X 'POST' 'http://localhost:3000/api/auth/signup' -H 'accept: _/_' -H 'Cont
 
     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoiZW1haWxAZW1haWwub20iLCJpYXQiOjE2NDk1NDcyMzAsImV4cCI6MTY0OTU4MzIzMH0.pfLUe_wkZY0WiCdrVnWCtCMsY5KhejmYI4Df-pqPKag"
     }
+
+# Marketplace userflow
+
+## Get Proposal
+
+![Get Proposal](./get-proposals.png)
+
+## Create Exchange Request
+
+![Create Exchange Request](./create-exchange-request.png)

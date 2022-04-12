@@ -7,31 +7,46 @@ export class ProposalsController {
   constructor(private readonly proposalsService: ProposalsService) {}
 
   @Get()
-  findAll() {
-    return this.proposalsService.findAll();
+  async findAll() {
+    return await this.proposalsService.findAll();
   }
 
   @MessagePattern('findAllProposals')
-  findAllProposals() {
-    return this.proposalsService.findAll();
+  async findAllProposals() {
+    return await this.proposalsService.findAll();
   }
   @MessagePattern('findProposalsByUserId')
-  findProposalsByUserIdd(@Payload() id: number) {
-    return this.proposalsService.findProposalsByUserId(id);
+  async findProposalsByUserIdd(@Payload() userId: number) {
+    console.log('user id is ', userId);
+    try {
+      return await this.proposalsService.findProposalsByUserId(userId);
+    } catch (error) {
+      return [];
+    }
   }
 
   @MessagePattern('findProposalsByRequestId')
-  findProposalsByRequestIdd(@Payload() id: number) {
-    return this.proposalsService.findProposalsByRequestId(id);
+  async findProposalsByRequestIdd(@Payload() id: number) {
+    try {
+      return this.proposalsService.findProposalsByRequestId(id);
+    } catch (error) {
+      return [];
+    }
   }
 
   @Get('user/:id')
-  findProposalsByUserId(@Param('id') id: string) {
-    return this.proposalsService.findProposalsByUserId(+id);
+  async findProposalsByUserId(@Param('id') id: string) {
+    try {
+      return await this.proposalsService.findProposalsByUserId(+id);
+    } catch (error) {
+      return [];
+    }
   }
 
   @Get(':id')
-  findProposalsByRequestId(@Param('id') id: string) {
-    return this.proposalsService.findProposalsByRequestId(+id);
+  async findProposalsByRequestId(@Param('id') id: string) {
+    try {
+      return await this.proposalsService.findProposalsByRequestId(+id);
+    } catch (error) {}
   }
 }

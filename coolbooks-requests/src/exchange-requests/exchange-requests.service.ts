@@ -12,8 +12,11 @@ export class ExchangeRequestsService {
     return { data: result };
   }
 
-  async findAll() {
-    const result = await this.prismaService.exchangeRequest.findMany();
+  async findAll(userId: number) {
+    
+    const result = await this.prismaService.exchangeRequest.findMany({
+      where: { userId },
+    });
     return { data: result };
   }
 

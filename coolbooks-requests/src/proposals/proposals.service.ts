@@ -11,25 +11,38 @@ export class ProposalsService {
   }
 
   async findProposalsByUserId(userId: number) {
-    const userRequests = await this.prisma.exchangeRequest.findMany({
+    const userLooking = await this.prisma.exchangeRequest.findMany({
       where: {
         userId,
       },
+      select: {
+        tag_looking: true,
+      },
     });
 
-    const proposals = userRequests.map((userRequest) => {
-      return new Promise(() => {
-        return this.prisma.exchangeRequest.findMany({
-          where: {
-            tag: userRequest.tag_looking,
-          },
-        });
-      });
+    const result = await this.prisma.exchangeRequest.findMany({
+      where: {
+        tag: {
+          in: userLooking.map((item) => item.tag_looking),
+        },
+        userId: { not: userId },
+      },
     });
 
-    const data = await Promise.all(proposals);
-    console.log('data is ', data);
-    return { data };
+    // const proposals = userRequests.map((userRequest) => {
+    //   return this.prisma.exchangeRequest.findMany({
+    //     where: {
+    //       tag: userRequest.tag_looking,
+    //       userId: { not: userId },
+    //     },
+    //     orderBy: {
+    //       createdAt: 'desc',
+    //     },
+    //   });
+    // });
+    // const data = await Promise.all(proposals);
+    // console.log('data is ', data);
+    return { data: result };
   }
 
   async findProposalsByRequestId(id: number) {

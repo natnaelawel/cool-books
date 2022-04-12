@@ -8,14 +8,26 @@ export class ProposalsService {
     @Inject('REQUEST_SERVICE') private readonly requestClient: ClientProxy,
   ) {}
   async findAllProposals(): Promise<Observable<any>> {
-    return this.requestClient.send<any>('findAllProposals', {});
+    try {
+      return await this.requestClient.send<any>('findAllProposals', {});
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async findProposalsByUserId(userId: number): Promise<Observable<any>> {
-    return this.requestClient.send('findProposalsByUserId', userId);
+    try {
+      return await this.requestClient.send('findProposalsByUserId', userId);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async findProposalsByRequestId(id: number): Promise<Observable<any>> {
-    return this.requestClient.send('findProposalsByRequestId', id);
+    try {
+      return await this.requestClient.send('findProposalsByRequestId', id);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

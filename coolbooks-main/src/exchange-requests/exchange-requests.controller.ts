@@ -9,6 +9,8 @@ import {
   UseInterceptors,
   UploadedFile,
   UseGuards,
+  NotFoundException,
+  ForbiddenException,
 } from '@nestjs/common';
 import { ExchangeRequestsService } from './exchange-requests.service';
 import { CreateExchangeRequestDto } from './dto/create-exchange-request.dto';
@@ -35,24 +37,41 @@ export class ExchangeRequestsController {
     description: 'Exchange request',
     type: CreateExchangeRequestDto,
   })
-  create(
+  async create(
     @GetUser() user: User,
     @UploadedFile() file: Express.Multer.File,
     @Body() createExchangeRequestDto: CreateExchangeRequestDto,
   ) {
-    createExchangeRequestDto.picture = file.originalname;
-    createExchangeRequestDto.userId = user.id;
-    return this.exchangeRequestsService.create(createExchangeRequestDto, file);
+    try {
+      createExchangeRequestDto.picture = file.originalname;
+      createExchangeRequestDto.userId = user.id;
+      return await this.exchangeRequestsService.create(
+        createExchangeRequestDto,
+        file,
+      );
+    } catch (error) {
+      throw new ForbiddenException();
+    }
   }
 
+  @ApiBearerAuth('JWT')
+  @UseGuards(JwtGuard)
   @Get()
-  findAll() {
-    return this.exchangeRequestsService.findAll();
+  async findAll(@GetUser() user: User) {
+    try {
+      return await this.exchangeRequestsService.findAll(user.id);
+    } catch (error) {
+      throw new NotFoundException();
+    }
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.exchangeRequestsService.findOne(+id);
+    try {
+      return this.exchangeRequestsService.findOne(+id);
+    } catch (error) {
+      throw new NotFoundException();
+    }
   }
 
   @ApiBearerAuth('JWT')
@@ -64,22 +83,31 @@ export class ExchangeRequestsController {
     type: UpdateExchangeRequestDto,
   })
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @UploadedFile() file: Express.Multer.File,
     @Body() updateExchangeRequestDto: UpdateExchangeRequestDto,
   ) {
-    return this.exchangeRequestsService.update(
-      +id,
-      file,
-      updateExchangeRequestDto,
-    );
+    try {
+      const result = await this.exchangeRequestsService.update(
+        +id,
+        file,
+        updateExchangeRequestDto,
+      );
+      return result;
+    } catch (error) {
+      throw new ForbiddenException();
+    }
   }
 
   @ApiBearerAuth('JWT')
   @UseGuards(JwtGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.exchangeRequestsService.remove(+id);
+    try {
+      return this.exchangeRequestsService.remove(+id);
+    } catch (error) {
+      throw new ForbiddenException();
+    }
   }
 }

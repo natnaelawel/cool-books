@@ -11,33 +11,45 @@ export class ExchangeRequestsController {
 
   @MessagePattern('createExchangeRequest')
   async create(@Payload() createExchangeRequestDto: CreateExchangeRequestDto) {
-    const result = await this.exchangeRequestsService.create(
-      createExchangeRequestDto,
-    );
-    return { data: result };
+    return await this.exchangeRequestsService.create(createExchangeRequestDto);
   }
 
   @MessagePattern('findAllExchangeRequests')
-  async findAll() {
-    const result = await this.exchangeRequestsService.findAll();
-    return result;
+  async findAll(@Payload() userId: number) {
+    try {
+      return await this.exchangeRequestsService.findAll(userId);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   @MessagePattern('findOneExchangeRequest')
-  findOne(@Payload() id: number) {
-    return this.exchangeRequestsService.findOne(id);
+  async findOne(@Payload() id: number) {
+    try {
+      return await this.exchangeRequestsService.findOne(id);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   @MessagePattern('updateExchangeRequest')
-  update(@Payload() updateExchangeRequestDto: any) {
-    return this.exchangeRequestsService.update(
-      updateExchangeRequestDto.id,
-      updateExchangeRequestDto,
-    );
+  async update(@Payload() updateExchangeRequestDto: any) {
+    try {
+      return await this.exchangeRequestsService.update(
+        updateExchangeRequestDto.id,
+        updateExchangeRequestDto,
+      );
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   @MessagePattern('removeExchangeRequest')
-  remove(@Payload() id: number) {
-    return this.exchangeRequestsService.remove(id);
+  async remove(@Payload() id: number) {
+    try {
+      return await this.exchangeRequestsService.remove(id);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }
