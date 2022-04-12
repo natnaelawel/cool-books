@@ -1,3 +1,8 @@
+# Deployed URL
+
+https://cool-books-main.herokuapp.com/
+
+
 # Architecture
 
 ![architecture](./img1.png)
