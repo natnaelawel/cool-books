@@ -89,12 +89,11 @@ export class ExchangeRequestsController {
     @Body() updateExchangeRequestDto: UpdateExchangeRequestDto,
   ) {
     try {
-      const result = await this.exchangeRequestsService.update(
+      return await this.exchangeRequestsService.update(
         +id,
         file,
         updateExchangeRequestDto,
       );
-      return result;
     } catch (error) {
       throw new ForbiddenException();
     }
@@ -103,7 +102,7 @@ export class ExchangeRequestsController {
   @ApiBearerAuth('JWT')
   @UseGuards(JwtGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     try {
       return this.exchangeRequestsService.remove(+id);
     } catch (error) {

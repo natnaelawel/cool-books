@@ -22,29 +22,32 @@ export class ExchangeRequestsService {
 
     createExchangeRequestDto.picture = result.secure_url;
 
-    return this.requestClient.send<any>(
+    return await this.requestClient.send<any>(
       'createExchangeRequest',
       createExchangeRequestDto,
     );
   }
 
   async findProposalsByUserId(id: number): Promise<Observable<any>> {
-    return this.requestClient.send<any>('findAllExchangeRequests', id);
+    return await this.requestClient.send<any>('findAllExchangeRequests', id);
   }
 
   async findProposalsByRequestId(id: number): Promise<Observable<any>> {
-    return this.requestClient.send<any>(
+    return await this.requestClient.send<any>(
       'exchange_request_findProposalsByRequestId',
       id,
     );
   }
 
   async findAll(userId: number): Promise<Observable<any>> {
-    return this.requestClient.send<any>('findAllExchangeRequests', userId);
+    return await this.requestClient.send<any>(
+      'findAllExchangeRequests',
+      userId,
+    );
   }
 
-  findOne(id: number) {
-    return this.requestClient.send<any>('findOneExchangeRequest', id);
+  async findOne(id: number) {
+    return await this.requestClient.send<any>('findOneExchangeRequest', id);
   }
 
   async update(
@@ -54,18 +57,17 @@ export class ExchangeRequestsService {
   ) {
     const result = await this.cloudinary.uploadImage(file).catch(() => {
       throw new BadRequestException('Invalid file type.');
-      
     });
 
     updateExchangeRequestDto.picture = result.secure_url;
 
-    return this.requestClient.send<any>('updateExchangeRequest', {
+    return await this.requestClient.send<any>('updateExchangeRequest', {
       id,
       data: updateExchangeRequestDto,
     });
   }
 
   async remove(id: number) {
-    return this.requestClient.send<any>('removeExchangeRequest', id);
+    return await this.requestClient.send<any>('removeExchangeRequest', id);
   }
 }
