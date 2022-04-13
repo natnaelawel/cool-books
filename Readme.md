@@ -2,7 +2,6 @@
 
 https://cool-books-main.herokuapp.com/
 
-
 # Architecture
 
 ![architecture](./img1.png)
@@ -63,6 +62,7 @@ Swagger is easily adjustable, it can be successfully used for API testing and bu
 # REST API Endpoints
 
 - / -> Swagger UI endpoint
+  -> the swagger is used to test all the api endpoints
 
   ### Global Api Prefix
 
@@ -89,10 +89,10 @@ Swagger is easily adjustable, it can be successfully used for API testing and bu
     - /:id -> Get: Get a single Exchange Request
     - /:id -> Patch: update exchange request
     - /:id -> Delete: delete exchange request
-  - /proposals -> Proposals Route
+  - /proposals -> Proposals(Exchange Requests that match users request) Route
     - / -> Get: find all proposals
     - /user -> Get: find proposal by user
-    - /:id -> Get: find proposals by request
+    - /:id -> Get: find proposals by specific request
 
 # REST API Example
 
